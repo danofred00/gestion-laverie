@@ -1,4 +1,4 @@
-import { createBrowserRouter,  redirect,Outlet } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import Root from "../pages/Root";
 import  {Dashboard}  from '../pages/Dashboard'
 import  {ReservationsPage}  from '../pages/ReservationsPage'
@@ -43,4 +43,4 @@ const router = createBrowserRouter([
       },
 ]);
 
-export default router
+export default router;
