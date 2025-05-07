@@ -1,8 +1,8 @@
-package com.example.carwash.controllers;
+package cm.group.gestion_laverie.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.carwash.models.Vehicle;
-import com.example.carwash.services.VehicleService;
+import cm.group.gestion_laverie.models.Vehicle;
+import cm.group.gestion_laverie.services.VehicleService;
 import java.util.*;
 
 @RestController
@@ -21,8 +21,7 @@ public class VehicleController {
         return service.getFiltered(filters);
     }
 
-    @GetMapping("/{
-        id}")
+    @GetMapping("/{id}")
     public Vehicle getById(@PathVariable Long id) {
         return service.getById(id);
     }
@@ -32,14 +31,12 @@ public class VehicleController {
         return service.save(obj);
     }
 
-    @PutMapping("/{
-        id}")
+    @PutMapping("/{id}")
     public Vehicle update(@PathVariable Long id, @RequestBody Vehicle obj) {
         return service.update(id, obj);
     }
 
-    @DeleteMapping("/{
-        id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

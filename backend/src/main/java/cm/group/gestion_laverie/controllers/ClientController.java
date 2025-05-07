@@ -1,8 +1,8 @@
-package com.example.carwash.controllers;
+package cm.group.gestion_laverie.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.carwash.models.Client;
-import com.example.carwash.services.ClientService;
+import cm.group.gestion_laverie.models.Client;
+import cm.group.gestion_laverie.services.ClientService;
 import java.util.*;
 
 @RestController
@@ -21,8 +21,7 @@ public class ClientController {
         return service.getFiltered(filters);
     }
 
-    @GetMapping("/{
-        id}")
+    @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {
         return service.getById(id);
     }
@@ -32,14 +31,12 @@ public class ClientController {
         return service.save(obj);
     }
 
-    @PutMapping("/{
-        id}")
+    @PutMapping("/{id}")
     public Client update(@PathVariable Long id, @RequestBody Client obj) {
         return service.update(id, obj);
     }
 
-    @DeleteMapping("/{
-        id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

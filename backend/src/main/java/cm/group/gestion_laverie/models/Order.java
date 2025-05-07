@@ -1,4 +1,4 @@
-package com.example.carwash.models;
+package cm.group.gestion_laverie.models;
 
 import jakarta.persistence.*;
 import java.time.*;
@@ -20,7 +20,7 @@ public class Order {
     @ManyToOne
     private Vehicle vehicle;
     @ManyToMany
-    private List<Service> services;
+    private List<Servicee> services;
     @OneToOne(mappedBy = "order")
     private Payment payment;
 

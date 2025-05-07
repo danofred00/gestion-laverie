@@ -1,11 +1,11 @@
-package com.example.carwash.models;
+package cm.group.gestion_laverie.models;
 
 import jakarta.persistence.*;
 import java.time.*;
 import java.util.*;
 
 @Entity
-public class Service {
+public class Servicee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Service {
     @ManyToMany(mappedBy = "services")
     private List<Order> orders;
 
-    public Service() {}
+    public Servicee() {}
 
     public Long getId() {
         return id;

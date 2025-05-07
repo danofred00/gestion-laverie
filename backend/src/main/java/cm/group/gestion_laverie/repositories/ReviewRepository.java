@@ -1,7 +1,7 @@
-package com.example.carwash.repositories;
+package cm.group.gestion_laverie.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.carwash.models.Review;
+import cm.group.gestion_laverie.models.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 }

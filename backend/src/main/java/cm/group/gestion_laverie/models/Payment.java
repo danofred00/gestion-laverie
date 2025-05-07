@@ -1,4 +1,4 @@
-package com.example.carwash.models;
+package cm.group.gestion_laverie.models;
 
 import jakarta.persistence.*;
 import java.time.*;

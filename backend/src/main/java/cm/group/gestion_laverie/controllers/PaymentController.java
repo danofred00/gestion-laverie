@@ -1,8 +1,8 @@
-package com.example.carwash.controllers;
+package cm.group.gestion_laverie.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.carwash.models.Payment;
-import com.example.carwash.services.PaymentService;
+import cm.group.gestion_laverie.models.Payment;
+import cm.group.gestion_laverie.services.PaymentService;
 import java.util.*;
 
 @RestController
@@ -21,8 +21,7 @@ public class PaymentController {
         return service.getFiltered(filters);
     }
 
-    @GetMapping("/{
-        id}")
+    @GetMapping("/{id}")
     public Payment getById(@PathVariable Long id) {
         return service.getById(id);
     }
@@ -32,14 +31,12 @@ public class PaymentController {
         return service.save(obj);
     }
 
-    @PutMapping("/{
-        id}")
+    @PutMapping("/{id}")
     public Payment update(@PathVariable Long id, @RequestBody Payment obj) {
         return service.update(id, obj);
     }
 
-    @DeleteMapping("/{
-        id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

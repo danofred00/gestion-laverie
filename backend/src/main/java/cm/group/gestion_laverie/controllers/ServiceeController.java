@@ -1,38 +1,38 @@
 package cm.group.gestion_laverie.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import cm.group.gestion_laverie.models.Order;
-import cm.group.gestion_laverie.services.OrderService;
+import cm.group.gestion_laverie.models.Servicee;
+import cm.group.gestion_laverie.services.ServiceeService;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/services")
 @CrossOrigin(origins = "*")
-public class OrderController {
+public class ServiceeController {
 
-    private final OrderService service;
+    private final ServiceeService service;
 
-    public OrderController(OrderService service) {
+    public ServiceeController(ServiceeService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Order> getAll(@RequestParam Map<String, String> filters) {
+    public List<Servicee> getAll(@RequestParam Map<String, String> filters) {
         return service.getFiltered(filters);
     }
 
     @GetMapping("/{id}")
-    public Order getById(@PathVariable Long id) {
+    public Servicee getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PostMapping
-    public Order create(@RequestBody Order obj) {
+    public Servicee create(@RequestBody Servicee obj) {
         return service.save(obj);
     }
 
     @PutMapping("/{id}")
-    public Order update(@PathVariable Long id, @RequestBody Order obj) {
+    public Servicee update(@PathVariable Long id, @RequestBody Servicee obj) {
         return service.update(id, obj);
     }
 

@@ -1,8 +1,8 @@
-package com.example.carwash.services;
+package cm.group.gestion_laverie.services;
 
 import org.springframework.stereotype.Service;
-import com.example.carwash.models.Complaint;
-import com.example.carwash.repositories.ComplaintRepository;
+import cm.group.gestion_laverie.models.Complaint;
+import cm.group.gestion_laverie.repositories.ComplaintRepository;
 import java.util.*;
 
 @Service

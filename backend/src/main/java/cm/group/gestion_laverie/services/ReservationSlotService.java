@@ -1,8 +1,8 @@
-package com.example.carwash.services;
+package cm.group.gestion_laverie.services;
 
 import org.springframework.stereotype.Service;
-import com.example.carwash.models.ReservationSlot;
-import com.example.carwash.repositories.ReservationSlotRepository;
+import cm.group.gestion_laverie.models.ReservationSlot;
+import cm.group.gestion_laverie.repositories.ReservationSlotRepository;
 import java.util.*;
 
 @Service
