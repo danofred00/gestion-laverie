@@ -1,8 +1,8 @@
 export default function Root() {
 
     return (
-      <div>
-        <h1>Hello World</h1>
+      <div className="bg-red-500 text-white p-4">
+        Ceci est un test Tailwind
       </div>
     )
   }
