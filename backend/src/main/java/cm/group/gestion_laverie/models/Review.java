@@ -1,10 +1,18 @@
 package cm.group.gestion_laverie.models;
 
 import jakarta.persistence.*;
-import java.time.*;
-import java.util.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@Builder
+@Table(name = "reviews")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
 
     @Id
@@ -12,19 +20,10 @@ public class Review {
     private Long id;
 
     private int note;
+    
     private String commentaire;
+    
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
-
-    public Review() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // TODO: Add getters and setters for all fields
 }
