@@ -41,7 +41,7 @@ const serviceDistribution = [{
   value: 10
 }];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-export function Dashboard() {
+export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     // Simulate loading delay
