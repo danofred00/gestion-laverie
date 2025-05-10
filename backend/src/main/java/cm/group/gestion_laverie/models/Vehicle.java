@@ -1,10 +1,19 @@
 package cm.group.gestion_laverie.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.*;
 import java.util.*;
 
+@Data
+@Builder
+@Table(name = "vehicles")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vehicle {
 
     @Id
@@ -12,24 +21,19 @@ public class Vehicle {
     private Long id;
 
     private String plaque;
+    
     private String marque;
+    
     private String modele;
+    
     private String categorie;
+    
     private LocalDate dateEnregistrement;
+    
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    
     @OneToMany(mappedBy = "vehicle")
     private List<Order> orders;
-
-    public Vehicle() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // TODO: Add getters and setters for all fields
 }
