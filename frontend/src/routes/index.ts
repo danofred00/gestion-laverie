@@ -1,32 +1,19 @@
-import { createBrowserRouter, redirect } from "react-router";
-import Root from "../pages/Root";
-import Dashboard from "../pages/Dashboard";
-import { ReservationsPage } from "../pages/ReservationsPage";
-import { PaymentsPage } from "../pages/PaymentsPage";
-import { ClientsPage } from "../pages/ClientsPage";
-import { Layout } from "../components/Layout";
-
-// loader qui vérifie l'authentification
-// async function requireAuth() {
-//     const isAuthenticated = localStorage.getItem('authToken') !== null
-//     if (!isAuthenticated) {
-//       // redirige vers /login si pas connecté
-//       throw redirect('/login')
-//     }
-//     return null
-//   }
+import { createBrowserRouter } from "react-router";
+import { AuthenticatedLayout } from "@/components/layouts/authenticated-layout";
+import Dashboard from "@/pages/dashboard";
+import { paymentRoute } from "./payment.route";
+import { clientRoute } from "./client.route";
+import { reservationRoute } from "./reservation.route";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: Layout,
-    // loader: requireAuth,
+    Component: AuthenticatedLayout,
     children: [
       { index: true, Component: Dashboard },
-      { path: "dashboard", Component: Dashboard },
-      { path: "reservations", Component: ReservationsPage },
-      { path: "payments", Component: PaymentsPage },
-      { path: "clients", Component: ClientsPage },
+      clientRoute,
+      paymentRoute,
+      reservationRoute
     ],
   },
 ]);
