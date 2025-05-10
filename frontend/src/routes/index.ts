@@ -1,9 +1,11 @@
 import { createBrowserRouter,  redirect,Outlet } from "react-router";
 import Root from "../pages/Root";
-import  Dashboard  from '../pages/Dashboard'
+import  {Dashboard}  from '../pages/Dashboard'
 import  {ReservationsPage}  from '../pages/ReservationsPage'
 import  {PaymentsPage}  from '../pages/PaymentsPage'
 import  {ClientsPage}  from '../pages/ClientsPage'
+import  {OrdersPage}  from '../pages/OrdersPage'
+import  {ReviewsPage}  from '../pages/ReviewsPage'
 import { Layout } from '../components/Layout'
 
 // loader qui vérifie l'authentification
@@ -31,6 +33,8 @@ const router = createBrowserRouter([
           { path: 'reservations', Component: ReservationsPage  },      
           { path: 'payments', Component: PaymentsPage  },      
           { path: 'clients', Component: ClientsPage  },      
+          { path: 'orders', Component: OrdersPage  },      
+          { path: 'reviews', Component: ReviewsPage  },      
         ],
       },
       {
