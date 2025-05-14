@@ -29,12 +29,13 @@ public class Client {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Subscription subscription;
+    
 }

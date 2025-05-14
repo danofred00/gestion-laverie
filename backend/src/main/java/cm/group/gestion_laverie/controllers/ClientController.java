@@ -1,11 +1,13 @@
 package cm.group.gestion_laverie.controllers;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import cm.group.gestion_laverie.exceptions.ResourceNotFoundException;
 import cm.group.gestion_laverie.models.Client;
 import cm.group.gestion_laverie.models.responses.JsonResponse;
+import cm.group.gestion_laverie.repositories.ClientRepository;
 import cm.group.gestion_laverie.services.ClientService;
 import java.util.*;
 
@@ -16,8 +18,11 @@ public class ClientController {
 
     private final ClientService service;
 
-    public ClientController(ClientService service) {
+    private final ClientRepository repo;
+
+    public ClientController(ClientService service,ClientRepository repo) {
         this.service = service;
+        this.repo = repo;
     }
 
     @GetMapping
@@ -48,8 +53,12 @@ public class ClientController {
     }
 
     @PostMapping
-    public JsonResponse create(@RequestBody Client obj) {
-        Client created = service.save(obj);
+    public JsonResponse create(@RequestBody Client client) {
+        if (repo.existsByEmail(client.getEmail())) {
+            throw new DataIntegrityViolationException("Email déjà utilisé : " + client.getEmail());
+        }
+        
+        Client created = service.save(client);
         return new JsonResponse(
             "Client created successfully", 
             HttpStatus.CREATED.value(),
