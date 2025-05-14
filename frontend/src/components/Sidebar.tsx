@@ -5,6 +5,7 @@ interface SidebarProps {
   mobile?: boolean;
   closeSidebar?: () => void;
 }
+import { Toaster } from "@/components/ui/sonner"
 export function Sidebar({
   mobile,
   closeSidebar
@@ -20,7 +21,7 @@ export function Sidebar({
     icon: UsersIcon
   }, {
     name: 'Véhicules',
-    href: '/vehicles',
+    href: '/vehicules',
     icon: CarIcon
   }, {
     name: 'Services',
@@ -97,5 +98,6 @@ export function Sidebar({
           </div>
         </div>
       </div>
+      <Toaster />
     </div>;
 }

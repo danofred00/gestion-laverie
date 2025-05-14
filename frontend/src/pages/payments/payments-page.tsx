@@ -118,7 +118,7 @@ export function PaymentsPage() {
               <p className="text-sm font-medium text-gray-500">
                 Total encaissé
               </p>
-              <p className="text-2xl font-semibold">{totalPaid.toFixed(2)} €</p>
+              <p className="text-2xl text-black font-semibold">{totalPaid.toFixed(2)} €</p>
             </div>
           </div>
         </Card>
@@ -129,7 +129,7 @@ export function PaymentsPage() {
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">En attente</p>
-              <p className="text-2xl font-semibold">
+              <p className="text-2xl text-black font-semibold">
                 {totalPending.toFixed(2)} €
               </p>
             </div>
@@ -142,7 +142,7 @@ export function PaymentsPage() {
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Total du jour</p>
-              <p className="text-2xl font-semibold">
+              <p className="text-2xl text-black font-semibold">
                 {(totalPaid + totalPending).toFixed(2)} €
               </p>
             </div>
@@ -157,13 +157,13 @@ export function PaymentsPage() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
               </div>
-              <input type="text" placeholder="Rechercher un paiement..." className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <input type="text" placeholder="Rechercher un paiement..." className="pl-10 pr-4 text-black py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="flex gap-2">
               <Button variant="outline" icon={<FilterIcon className="h-4 w-4" />}>
                 Filtres
               </Button>
-              <select className="border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+              <select className="border border-gray-300 text-black rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
                 <option value="">Tous les statuts</option>
                 <option value="complete">Payé</option>
                 <option value="pending">En attente</option>

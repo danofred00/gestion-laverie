@@ -166,7 +166,7 @@ export function ReservationsPage() {
             <Button variant="outline" size="sm" icon={<ChevronLeftIcon className="h-4 w-4" />}>
               Semaine précédente
             </Button>
-            <h2 className="text-lg font-medium">22 - 28 Mai 2023</h2>
+            <h2 className="text-lg text-gray-900 font-medium">22 - 28 Mai 2023</h2>
             <Button variant="outline" size="sm" icon={<ChevronRightIcon className="h-4 w-4" />}>
               Semaine suivante
             </Button>

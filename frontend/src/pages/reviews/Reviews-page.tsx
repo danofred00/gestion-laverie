@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { MessageSquareIcon, AlertTriangleIcon, StarIcon, SearchIcon, FilterIcon, ChevronLeftIcon, ChevronRightIcon, CheckIcon, ClockIcon, XIcon, UserIcon, CalendarIcon } from 'lucide-react';
+import { Card } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { MessageSquareIcon, AlertTriangleIcon, StarIcon, SearchIcon, FilterIcon, ChevronLeftIcon, ChevronRightIcon, CheckIcon, ClockIcon, XIcon, UserIcon, CalendarIcon, PhoneIcon, ClipboardListIcon } from 'lucide-react';
 // Sample reviews data
 const sampleReviews = [{
   id: 1,
@@ -197,7 +197,7 @@ export function ReviewsPage() {
   return <div>
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl text-black font-bold text-gray-900">
             Avis & Réclamations
           </h1>
           <p className="text-gray-500">Gérez les retours clients</p>
@@ -213,7 +213,7 @@ export function ReviewsPage() {
             <div>
               <p className="text-sm font-medium text-gray-500">Note moyenne</p>
               <div className="flex items-baseline">
-                <p className="text-2xl font-semibold">
+                <p className="text-2xl text-black  font-semibold">
                   {averageRating.toFixed(1)}
                 </p>
                 <div className="ml-2">
@@ -232,7 +232,7 @@ export function ReviewsPage() {
               <p className="text-sm font-medium text-gray-500">
                 En attente de modération
               </p>
-              <p className="text-2xl font-semibold">{pendingReviews} avis</p>
+              <p className="text-2xl text-black font-semibold">{pendingReviews} avis</p>
             </div>
           </div>
         </Card>
@@ -245,7 +245,7 @@ export function ReviewsPage() {
               <p className="text-sm font-medium text-gray-500">
                 Réclamations à traiter
               </p>
-              <p className="text-2xl font-semibold">
+              <p className="text-2xl text-black font-semibold">
                 {pendingComplaints} réclamations
               </p>
             </div>
@@ -279,13 +279,13 @@ export function ReviewsPage() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
               </div>
-              <input type="text" placeholder={`Rechercher ${activeTab === 'reviews' ? 'un avis' : 'une réclamation'}...`} className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <input type="text" placeholder={`Rechercher ${activeTab === 'reviews' ? 'un avis' : 'une  réclamation'}...`} className="pl-10 pr-4 py-2 border text-black border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="flex gap-2">
               <Button variant="outline" icon={<FilterIcon className="h-4 w-4" />}>
                 Filtres
               </Button>
-              {activeTab === 'reviews' && <select className="border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={ratingFilter} onChange={e => setRatingFilter(e.target.value)}>
+              {activeTab === 'reviews' && <select className="border text-black border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={ratingFilter} onChange={e => setRatingFilter(e.target.value)}>
                   <option value="">Toutes les notes</option>
                   <option value="5">5 étoiles</option>
                   <option value="4">4 étoiles</option>
@@ -381,7 +381,7 @@ export function ReviewsPage() {
                             </span>
                           </div>
                           <div className="flex items-center">
-                            <WrenchIcon className="h-4 w-4 text-gray-400 mr-2" />
+                            {/* <WrenchIcon className="h-4 w-4 text-gray-400 mr-2" /> */}
                             <span className="text-sm text-gray-600">
                               Service: {review.service}
                             </span>
@@ -548,7 +548,7 @@ export function ReviewsPage() {
                           </span>
                         </div>
                         <div className="flex items-center">
-                          <WrenchIcon className="h-4 w-4 text-gray-400 mr-2" />
+                          {/* <WrenchIcon className="h-4 w-4 text-gray-400 mr-2" /> */}
                           <span className="text-sm text-gray-600">
                             Service concerné: {complaint.service}
                           </span>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { PlusIcon, SearchIcon, FilterIcon, ClipboardListIcon, ClockIcon, CheckIcon, XIcon, AlertCircleIcon } from 'lucide-react';
 // Sample orders data
 const sampleOrders = [{
@@ -69,19 +69,19 @@ const sampleOrders = [{
 const statusMap = {
   en_attente: {
     label: 'En attente',
-    color: 'bg-amber-100 text-amber-800'
+    color: 'bg-amber-400 text-amber-800'
   },
   en_cours: {
     label: 'En cours',
-    color: 'bg-blue-100 text-blue-800'
+    color: 'bg-blue-400 text-blue-800'
   },
   termine: {
     label: 'Terminé',
-    color: 'bg-green-100 text-green-800'
+    color: 'bg-green-400 text-green-800'
   },
   annule: {
     label: 'Annulé',
-    color: 'bg-red-100 text-red-800'
+    color: 'bg-red-400 text-red-800'
   }
 };
 export function OrdersPage() {
@@ -128,7 +128,7 @@ export function OrdersPage() {
           <h1 className="text-2xl font-bold text-gray-900">
             Gestion des commandes
           </h1>
-          <p className="text-gray-500">Gérez les lavages et services</p>
+          <p className="text-gray-900">Gérez les lavages et services</p>
         </div>
         <Button variant="primary" icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowAddOrderModal(true)}>
           Nouvelle commande
@@ -146,8 +146,8 @@ export function OrdersPage() {
           return <Card key={status} className="p-4 cursor-pointer hover:shadow-md transition-shadow" onClick={() => setStatusFilter(status === statusFilter ? '' : status)}>
                 <div className={`flex items-center justify-between ${statusFilter === status ? 'font-bold' : ''}`}>
                   <div>
-                    <p className="text-sm text-gray-500">{label}</p>
-                    <p className="text-2xl font-semibold">{count}</p>
+                    <p className="text-sm text-gray-900">{label}</p>
+                    <p className="text-2xl text-gray-900 font-semibold">{count}</p>
                   </div>
                   <div className={`p-2 rounded-full ${color.split(' ')[0]}`}>
                     {status === 'en_attente' && <ClockIcon className="h-5 w-5" />}
@@ -168,13 +168,13 @@ export function OrdersPage() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
               </div>
-              <input type="text" placeholder="Rechercher une commande..." className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <input type="text" placeholder="Rechercher une commande..." className="pl-10 pr-4 text-black py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="flex gap-2">
               <Button variant="outline" icon={<FilterIcon className="h-4 w-4" />}>
                 Filtres
               </Button>
-              <select className="border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+              <select className="border border-gray-300 rounded-md text-black px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
                 <option value="">Tous les statuts</option>
                 <option value="en_attente">En attente</option>
                 <option value="en_cours">En cours</option>
@@ -192,22 +192,22 @@ export function OrdersPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Date / Heure
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Client / Véhicule
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Service
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Statut
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Prix
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -243,7 +243,7 @@ export function OrdersPage() {
                             <div className="text-sm font-medium text-gray-900">
                               {order.date}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-900">
                               {order.time}
                             </div>
                           </td>
@@ -251,7 +251,7 @@ export function OrdersPage() {
                             <div className="text-sm font-medium text-gray-900">
                               {order.client}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-900">
                               {order.vehicle}
                             </div>
                           </td>
@@ -259,7 +259,7 @@ export function OrdersPage() {
                             <div className="text-sm text-gray-900">
                               {order.service}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-900">
                               {order.employee ? `Par: ${order.employee}` : ''}
                             </div>
                           </td>
