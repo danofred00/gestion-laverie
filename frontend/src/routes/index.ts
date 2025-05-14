@@ -11,6 +11,7 @@ import { AuthLoginRoute } from "./login.route";
 import { serviceRoute } from "./service.route";
 import { subscriptionRoute } from "./subscription.route";
 import { vehiculeRoute } from "./vehicule.route";
+import { LoginPage } from "@/pages/auth/LoginPage";
 
 const router = createBrowserRouter([
   {
@@ -26,11 +27,19 @@ const router = createBrowserRouter([
       dashboardRoute,
       reviewRoute,
       serviceRoute,
-      AuthLoginRoute,
-      subscriptionRoute,
+       subscriptionRoute,
       vehiculeRoute,
     ],
   },
+  {
+      path: '/auth/login',
+      children: [
+          {
+              index: true,
+              Component: LoginPage
+          }
+      ]
+  }
 ]);
 
 export default router;
