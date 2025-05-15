@@ -7,10 +7,12 @@ import { reviewRoute } from "./review.route";
 import { orderRoute } from "./oder.route";
 import { dashboardRoute } from "./dashboard.route";
 import { reservationRoute } from "./reservation.route";
-import { AuthLoginRoute } from "./login.route";
+// import { AuthLoginRoute } from "./login.route";
 import { serviceRoute } from "./service.route";
+import { inventoryRoute } from "./inventory.route";
 import { subscriptionRoute } from "./subscription.route";
 import { vehiculeRoute } from "./vehicule.route";
+import { staffRoute } from "./staff.route";
 import { LoginPage } from "@/pages/auth/LoginPage";
 
 const router = createBrowserRouter([
@@ -29,6 +31,8 @@ const router = createBrowserRouter([
       serviceRoute,
        subscriptionRoute,
       vehiculeRoute,
+      staffRoute,
+      inventoryRoute,
     ],
   },
   {
