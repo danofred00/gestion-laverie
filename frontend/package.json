@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "vite",
-    "start:backend": "cd ../backend && gradlew.bat bootRun",
+    "start:backend": "cd ../backend && gradlew. bat bootRun",
     "start:all": "concurrently \"npm run dev\" \"npm run start:backend\""
   },
   "dependencies": {

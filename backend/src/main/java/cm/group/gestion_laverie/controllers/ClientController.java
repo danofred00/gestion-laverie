@@ -1,11 +1,13 @@
 package cm.group.gestion_laverie.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import cm.group.gestion_laverie.exceptions.ResourceNotFoundException;
 import cm.group.gestion_laverie.models.Client;
 import cm.group.gestion_laverie.models.responses.JsonResponse;
+import cm.group.gestion_laverie.repositories.ClientRepository;
 import cm.group.gestion_laverie.services.ClientService;
 import java.util.*;
 
@@ -16,8 +18,11 @@ public class ClientController {
 
     private final ClientService service;
 
-    public ClientController(ClientService service) {
+    private final ClientRepository clientRepository;
+
+    public ClientController(ClientService service,ClientRepository clientRepository) {
         this.service = service;
+        this.clientRepository = clientRepository;
     }
 
     @GetMapping
@@ -47,16 +52,19 @@ public class ClientController {
         );
     }
 
-    @PostMapping
-    public JsonResponse create(@RequestBody Client obj) {
-        Client created = service.save(obj);
-        return new JsonResponse(
-            "Client created successfully", 
-            HttpStatus.CREATED.value(),
-            "CREATED",
-            created
-        );
+   @PostMapping
+public ResponseEntity<JsonResponse> createClient(@RequestBody Client client) {
+    if (clientRepository.existsByEmail(client.getEmail())) {
+        return ResponseEntity
+            .badRequest()
+            .body(new JsonResponse("Email déjà utilisé : " + client.getEmail(), 400, "BAD_REQUEST", null));
     }
+
+    Client savedClient = service.save(client);
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(new JsonResponse("Client created successfully", 201, "CREATED", savedClient));
+}
 
     @PutMapping("/{id}")
     public JsonResponse update(@PathVariable Long id, @RequestBody Client obj) {
