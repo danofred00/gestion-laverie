@@ -9,6 +9,7 @@ import { dashboardRoute } from "./dashboard.route";
 import { reservationRoute } from "./reservation.route";
 import { AuthLoginRoute } from "./login.route";
 import { serviceRoute } from "./service.route";
+import { staffRoute } from "./staff.route";
 import { subscriptionRoute } from "./subscription.route";
 import { vehiculeRoute } from "./vehicule.route";
 import { LoginPage } from "@/pages/auth/LoginPage";
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       serviceRoute,
        subscriptionRoute,
       vehiculeRoute,
+      staffRoute
     ],
   },
   {

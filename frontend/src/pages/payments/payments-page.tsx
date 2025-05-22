@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import axios from '@/lib/axios';
 import { SearchIcon, FilterIcon, CreditCardIcon, DownloadIcon, EuroIcon, CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 // Sample payments data
 const samplePayments = [{
@@ -30,7 +31,7 @@ const samplePayments = [{
   method: 'carte',
   status: 'complete',
   invoice: 'INV-2023-003'
-}, {
+}, { 
   id: 4,
   client: 'Marie Dubois',
   amount: 40.0,
@@ -69,17 +70,67 @@ export function PaymentsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [filteredPayments, setFilteredPayments] = useState(samplePayments);
   const [showInvoice, setShowInvoice] = useState<number | null>(null);
-  useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+  const [payments, setPayments] = useState([]);
+
+  const formatPayments = (payments) => {
+  return payments.map(payment => {
+    const updatedAt = new Date(payment.updatedAt[0], payment.updatedAt[1] - 1, payment.updatedAt[2], payment.updatedAt[3], payment.updatedAt[4], payment.updatedAt[5]);
+
+    const date = updatedAt.toLocaleDateString('fr-FR'); // format: 26/05/2023
+    const time = updatedAt.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }); // format: 10:45
+
+    return {
+      id: payment.id,
+      client: payment.client,
+      amount: payment.montant,
+      date,
+      time,
+      method: payment.method,
+      status: payment.status.toLowerCase(),
+      invoice: payment.invoice
+    };
+  });
+};
+const handleMarkAsPaid = async (paymentId) => {
+  try {
+    setLoading(true);
+     await axios.get(`/api/payments/${paymentId}/status`)
+
+     fetchPayment();
+    console.log("Le paiement a été marqué comme payé.");
+   setLoading(false);
+  } catch (error) {
+    console.error('Erreur:', error);
+    alert("Une erreur est survenue.");
+  }
+};
+
+const fetchPayment = ()=>{
+  setLoading(true);
+axios.get("/api/payments")
+
+      .then(response => {
+        const formatted = formatPayments(response.data.data);
+        console.log("Formatted payments:", formatted);
+        setPayments(formatted);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Erreur lors du fetch des paiements :", error);
+        setLoading(false);
+      });
+}
+useEffect(() => {
+  fetchPayment();
   }, []);
+
+
   useEffect(() => {
-    let filtered = samplePayments;
+    let filtered = payments;
     if (searchTerm) {
       filtered = filtered.filter(payment => payment.client.toLowerCase().includes(searchTerm.toLowerCase()) || payment.invoice.toLowerCase().includes(searchTerm.toLowerCase()));
     }
@@ -87,14 +138,16 @@ export function PaymentsPage() {
       filtered = filtered.filter(payment => payment.status === statusFilter);
     }
     setFilteredPayments(filtered);
-  }, [searchTerm, statusFilter]);
+  }, [searchTerm, statusFilter,payments]);
+
   const handleShowInvoice = (id: number) => {
     setShowInvoice(id);
   };
   const closeInvoice = () => {
     setShowInvoice(null);
   };
-  const payment = samplePayments.find(p => p.id === showInvoice);
+  const [filteredPayments, setFilteredPayments] = useState(payments);
+  const payment = payments.find(p => p.id === showInvoice);
   // Calculate totals
   const totalPaid = samplePayments.filter(p => p.status === 'complete').reduce((sum, payment) => sum + payment.amount, 0);
   const totalPending = samplePayments.filter(p => p.status === 'pending').reduce((sum, payment) => sum + payment.amount, 0);
@@ -118,7 +171,7 @@ export function PaymentsPage() {
               <p className="text-sm font-medium text-gray-500">
                 Total encaissé
               </p>
-              <p className="text-2xl text-black font-semibold">{totalPaid.toFixed(2)} €</p>
+              <p className="text-2xl text-black font-semibold">{totalPaid.toFixed(2)} frcs</p>
             </div>
           </div>
         </Card>
@@ -130,7 +183,7 @@ export function PaymentsPage() {
             <div>
               <p className="text-sm font-medium text-gray-500">En attente</p>
               <p className="text-2xl text-black font-semibold">
-                {totalPending.toFixed(2)} €
+                {totalPending.toFixed(2)} frcs
               </p>
             </div>
           </div>
@@ -143,7 +196,7 @@ export function PaymentsPage() {
             <div>
               <p className="text-sm font-medium text-gray-500">Total du jour</p>
               <p className="text-2xl text-black font-semibold">
-                {(totalPaid + totalPending).toFixed(2)} €
+                {(totalPaid + totalPending).toFixed(2)} frcs
               </p>
             </div>
           </div>
@@ -160,12 +213,12 @@ export function PaymentsPage() {
               <input type="text" placeholder="Rechercher un paiement..." className="pl-10 pr-4 text-black py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" icon={<FilterIcon className="h-4 w-4" />}>
-                Filtres
+              <Button variant="outline" >
+                <FilterIcon className="h-4 w-4" /> Filtres
               </Button>
               <select className="border border-gray-300 text-black rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-                <option value="">Tous les statuts</option>
-                <option value="complete">Payé</option>
+                <option disabled value="">Tous les statuts</option>
+                <option value="payé">Payé</option>
                 <option value="pending">En attente</option>
               </select>
             </div>
@@ -231,7 +284,7 @@ export function PaymentsPage() {
                       </p>
                       <p>
                         <span className="text-gray-600">Méthode:</span>{' '}
-                        {methodMap[payment.method as keyof typeof methodMap]}
+                        {payment.method }
                       </p>
                       <p>
                         <span className="text-gray-600">Statut:</span>{' '}
@@ -265,10 +318,10 @@ export function PaymentsPage() {
                           1
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
-                          {payment.amount.toFixed(2)} €
+                          {payment.amount.toFixed(2)} frcs
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
-                          {payment.amount.toFixed(2)} €
+                          {payment.amount.toFixed(2)} frcs
                         </td>
                       </tr>
                     </tbody>
@@ -279,7 +332,7 @@ export function PaymentsPage() {
                           Sous-total:
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
-                          {payment.amount.toFixed(2)} €
+                          {payment.amount.toFixed(2)} frcs
                         </td>
                       </tr>
                       <tr>
@@ -288,7 +341,7 @@ export function PaymentsPage() {
                           TVA (20%):
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
-                          {(payment.amount * 0.2).toFixed(2)} €
+                          {(payment.amount * 0.2).toFixed(2)} frcs
                         </td>
                       </tr>
                       <tr>
@@ -297,7 +350,7 @@ export function PaymentsPage() {
                           Total:
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 text-right">
-                          {(payment.amount * 1.2).toFixed(2)} €
+                          {(payment.amount * 1.2).toFixed(2)} frcs
                         </td>
                       </tr>
                     </tfoot>
@@ -381,25 +434,25 @@ export function PaymentsPage() {
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {payment.amount.toFixed(2)} €
+                            {payment.amount.toFixed(2)} frcs
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {methodMap[payment.method as keyof typeof methodMap]}
+                              {payment.method }
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${payment.status === 'complete' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}`}>
-                              {payment.status === 'complete' ? 'Payé' : 'En attente'}
+                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${payment.status === 'payé' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}`}>
+                              {payment.status !== 'pending' ? 'Payé' : 'En attente'}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div className="flex space-x-2">
-                              <Button variant="outline" size="sm" icon={<DownloadIcon className="h-4 w-4" />} onClick={() => handleShowInvoice(payment.id)}>
-                                Facture
+                              <Button variant="outline" size="sm"  onClick={() => handleShowInvoice(payment.id)}>
+                                <DownloadIcon className="h-4 w-4" /> Facture
                               </Button>
-                              {payment.status === 'pending' && <Button variant="primary" size="sm" icon={<CreditCardIcon className="h-4 w-4" />}>
-                                  Payer
+                              {payment.status === 'pending'  && <Button variant="primary" onClick={() => handleMarkAsPaid(payment.id)} size="sm" >
+                                  <CreditCardIcon className="h-4 w-4" />  Payer
                                 </Button>}
                             </div>
                           </td>
